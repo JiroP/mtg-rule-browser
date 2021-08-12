@@ -9,8 +9,6 @@ type RuleContents = {
 }
 
 const parseRulesToObject = (data: string): RuleContents => {
-  // console.log(data);
-
   // Split to array and filter empty elements
   const lines = data.split('\r\n').filter((ele) => ele);
 
@@ -24,14 +22,16 @@ const parseRulesToObject = (data: string): RuleContents => {
     rulesStartIndex + glossaryStartIndex,
   );
 
+  // Sections always start with number followed by a . and space
   const sectionFilter = (rule: string): boolean => (
     new RegExp('^[0-9]. ').test(rule)
   );
+  // Chapters start with 3 numbers followed by a . and space
   const chaptersFilter = (rule: string): boolean => (
     new RegExp('^[0-9][0-9][0-9]. ').test(rule)
   );
 
-  const sections = rulesData.filter((sectionFilter));
+  const sections = rulesData.filter(sectionFilter);
   const chapters = rulesData.filter(chaptersFilter);
 
   const getSectionChapters = (section: string): string[] => {
