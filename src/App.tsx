@@ -9,6 +9,8 @@ const App: React.FC = (): ReactElement => {
       try {
         const resp = await axios.get('http://localhost:3001');
         const rulesObject = parseRulesToObject(resp.data);
+
+        console.log(rulesObject);
       } catch (error) {
         console.error('Error getting rules');
         console.error(error);
