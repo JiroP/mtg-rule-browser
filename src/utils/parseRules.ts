@@ -20,8 +20,11 @@ const parseRulesToObject = (data: string): Section[] => {
   const lines = data.split('\r\n').filter((ele) => ele);
 
   const rulesStartIndex = lines.findIndex((line) => line === 'Credits') + 1;
+  const glossaryStartIndex = lines.slice(rulesStartIndex).findIndex((line) => line === 'Glossary');
 
-  console.log(lines[rulesStartIndex]);
+  const rules = lines.slice(rulesStartIndex, rulesStartIndex + glossaryStartIndex);
+
+  console.log(rules);
 
   return [];
 };
