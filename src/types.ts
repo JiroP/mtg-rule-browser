@@ -1,9 +1,24 @@
+export type RuleType = 'section' | 'chapter' | 'rule' | 'subRule';
+export interface SubRule {
+  title: string;
+}
+export interface Rule {
+  title: string;
+  subRules: { [key: string]: SubRule }
+}
+export interface Chapter {
+  title: string;
+  rules: { [key: string]: Rule }
+}
 export interface Section {
-  chapters: string[];
-  name: string;
+  title: string;
+  chapters: { [key: string]: Chapter }
+}
+export interface RulesDict {
+  [key: string]: Section;
 }
 
 export interface RuleContents {
-  tableOfContentsData: Section[];
-  rulesData: string[];
+  rulesArray: string[];
+  rulesDict: RulesDict;
 }

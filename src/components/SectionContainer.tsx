@@ -1,20 +1,15 @@
 import React from 'react';
 import { Section } from '../types';
-import Chapter from './Chapter';
+import ChapterContainer from './ChapterContainer';
 
-interface SectionContainerProps extends Section {
-  rules: string[];
-}
-
-const SectionContainer: React.FC<SectionContainerProps> = ({
-  name,
+const SectionContainer: React.FC<Section> = ({
   chapters,
-  rules,
+  title,
 }) => (
   <>
-    <div>{name}</div>
-    {chapters.map((chapter) => (
-      <Chapter chapter={chapter} rules={rules} />
+    <div>{title}</div>
+    {Object.values(chapters).map((chapter) => (
+      <ChapterContainer rules={chapter.rules} title={chapter.title} />
     ))}
   </>
 );

@@ -1,44 +1,8 @@
 /* eslint-disable no-useless-escape */
-import { RuleContents, Section } from '../types';
-
-type RuleType = 'section' | 'chapter' | 'rule' | 'subRule';
-interface SubRule {
-  title: string;
-}
-interface Rule {
-  title: string;
-  subRules: { [key: string]: SubRule }
-}
-interface Chapter {
-  title: string;
-  rules: { [key: string]: Rule }
-}
-interface SectionTemp {
-  title: string;
-  chapters: { [key: string]: Chapter }
-}
-interface RulesObject {
-  [key: string]: SectionTemp;
-}
+import { RuleContents, RulesDict, RuleType } from '../types';
 
 const parseRulesToObject = (data: string): RuleContents => {
-  // Groups paragraphs between empty lines or empty line with space
-  const lines = data.replace(/\r\n/g, '\n')
-    .split(/\n{2,}|\n \n/g);
-
-  const rulesStartIndex = lines.findIndex((line) => line === 'Credits') + 1;
-  const glossaryStartIndex = lines
-    .slice(rulesStartIndex)
-    .findIndex((line) => line === 'Glossary');
-
-  const rulesData = lines.slice(
-    rulesStartIndex,
-    rulesStartIndex + glossaryStartIndex,
-  );
-
-  console.log(rulesData);
-
-  const rulesObject: RulesObject = {};
+  const rulesDict: RulesDict = {};
 
   const isSection = (line: string): boolean => (
     new RegExp('^\\d[.] ').test(line)
@@ -84,14 +48,14 @@ const parseRulesToObject = (data: string): RuleContents => {
       case 'section': {
         const sKey = getSectionKey(title);
 
-        rulesObject[sKey] = { title, chapters: {} };
+        rulesDict[sKey] = { title, chapters: {} };
         break;
       }
       case 'chapter': {
         const sKey = getSectionKey(title);
         const cKey = getChapterKey(title);
 
-        rulesObject[sKey]
+        rulesDict[sKey]
           .chapters[cKey] = {
             title, rules: {},
           };
@@ -102,7 +66,7 @@ const parseRulesToObject = (data: string): RuleContents => {
         const cKey = getChapterKey(title);
         const rKey = getRuleKey(title);
 
-        rulesObject[sKey]
+        rulesDict[sKey]
           .chapters[cKey]
           .rules[rKey] = {
             title,
@@ -116,7 +80,7 @@ const parseRulesToObject = (data: string): RuleContents => {
         const rKey = getRuleKey(title);
         const sRKey = getSubRuleKey(title);
 
-        rulesObject[sKey]
+        rulesDict[sKey]
           .chapters[cKey]
           .rules[rKey]
           .subRules[sRKey] = {
@@ -129,42 +93,26 @@ const parseRulesToObject = (data: string): RuleContents => {
     }
   };
 
-  rulesData.forEach((rule) => {
+  // Groups paragraphs between empty lines or empty line with space
+  const lines = data.replace(/\r\n/g, '\n')
+    .split(/\n{2,}|\n \n/g);
+
+  const rulesStartIndex = lines.findIndex((line) => line === 'Credits') + 1;
+  const glossaryStartIndex = lines
+    .slice(rulesStartIndex)
+    .findIndex((line) => line === 'Glossary');
+
+  const rulesArray = lines.slice(
+    rulesStartIndex,
+    rulesStartIndex + glossaryStartIndex,
+  );
+
+  rulesArray.forEach((rule) => {
     const type = getLineType(rule);
     insertRuleToRulesObject(rule, type);
   });
 
-  console.log(rulesObject);
-
-  // Sections always start with number followed by a . and space
-  const sectionFilter = (rule: string): boolean => (
-    new RegExp('^\\d. ').test(rule)
-  );
-  // Chapters start with 3 numbers followed by a . and space
-  const chaptersFilter = (rule: string): boolean => (
-    new RegExp('^\\d{3}. ').test(rule)
-  );
-
-  const sections = rulesData.filter(sectionFilter);
-  const chapters = rulesData.filter(chaptersFilter);
-
-  const getSectionChapters = (section: string): string[] => {
-    const sectionChapters = chapters.filter((chapter) => (
-      chapter.startsWith(section[0])
-    ));
-    return sectionChapters;
-  };
-
-  const tableOfContentsData = sections.reduce<Section[]>(
-    (acc, section) => [...acc,
-      {
-        name: section,
-        chapters: getSectionChapters(section),
-      }],
-    [],
-  );
-
-  return { tableOfContentsData, rulesData };
+  return { rulesDict, rulesArray };
 };
 
 export default parseRulesToObject;

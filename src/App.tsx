@@ -1,23 +1,23 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import axios from 'axios';
 import parseRulesToObject from './utils/parseRules';
-import { Section } from './types';
+import { RulesDict } from './types';
 import TableOfContents from './components/TableOfContents';
 // import './App.css';
 
 const App: React.FC = (): ReactElement => {
-  const [tableOfContents, setTableOfContents] = useState<Section[]>([]);
+  const [rulesDictionary, setRulesDictionary] = useState<RulesDict>({});
   const [rules, setRules] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchRules: () => Promise<void> = async () => {
       try {
         const resp = await axios.get('http://localhost:3001');
-        const { rulesData, tableOfContentsData } = parseRulesToObject(
+        const { rulesArray, rulesDict } = parseRulesToObject(
           resp.data,
         );
-        setTableOfContents(tableOfContentsData);
-        setRules(rulesData);
+        setRulesDictionary(rulesDict);
+        setRules(rulesArray);
       } catch (error) {
         console.error('Error getting rules');
         console.error(error);
@@ -31,8 +31,8 @@ const App: React.FC = (): ReactElement => {
     <>
       <h1>Hello world</h1>
       <TableOfContents
-        tableOfContentsData={tableOfContents}
-        rulesData={rules}
+        rulesDict={rulesDictionary}
+        rulesArray={rules}
       />
     </>
   );

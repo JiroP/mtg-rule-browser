@@ -3,21 +3,20 @@ import { RuleContents } from '../types';
 import SectionContainer from './SectionContainer';
 
 const TableOfContents: React.FC<RuleContents> = ({
-  tableOfContentsData,
-  rulesData,
+  rulesArray,
+  rulesDict,
 }): ReactElement | null => {
-  if (!tableOfContentsData.length) {
+  if (!rulesArray.length) {
     return null;
   }
 
   return (
     <>
-      {tableOfContentsData.map(({ name, chapters }) => (
+      {Object.values(rulesDict).map(({ title, chapters }) => (
         <SectionContainer
-          key={`Section-${name}`}
-          name={name}
+          key={`Section-${title}`}
+          title={title}
           chapters={chapters}
-          rules={rulesData}
         />
       ))}
     </>
