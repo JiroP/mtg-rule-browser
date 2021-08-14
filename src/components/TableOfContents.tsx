@@ -12,9 +12,10 @@ const TableOfContents: React.FC<RuleContents> = ({
 
   return (
     <>
-      {Object.values(rulesDict).map(({ title, chapters }) => (
+      {Object.entries(rulesDict).map(([id, { title, chapters }]) => (
         <SectionContainer
           key={`Section-${title}`}
+          id={id}
           title={title}
           chapters={chapters}
         />

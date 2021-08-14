@@ -1,13 +1,15 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import './App.css';
 import { Container, makeStyles } from '@material-ui/core';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
+import RulesContext from './RulesContext';
 import parseRulesToObject from './utils/parseRules';
 import TableOfContents from './components/TableOfContents';
 import { RulesDict } from './types';
 import { COLORS } from './constants/colors';
+import RulesContainer from './components/RulesContainer';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -15,7 +17,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const App: React.FC = (): ReactElement => {
+const App: React.FC = (): ReactElement | null => {
   const classes = useStyles();
 
   const [rulesDictionary, setRulesDictionary] = useState<RulesDict>({});
@@ -37,13 +39,26 @@ const App: React.FC = (): ReactElement => {
     fetchRules();
   }, []);
 
+  if (!rules.length) {
+    return null;
+  }
+
   return (
-    <Router>
-      <Container className={classes.container}>
-        <h1>MTG rule browsing</h1>
-        <TableOfContents rulesDict={rulesDictionary} rulesArray={rules} />
-      </Container>
-    </Router>
+    <Container className={classes.container}>
+      <RulesContext.Provider
+        value={{ rulesArray: rules, rulesDict: rulesDictionary }}
+      >
+        <Switch>
+          <Route path="/:sectionId/:chapterId">
+            <RulesContainer />
+          </Route>
+          <Route exact path="/">
+            <h1>MTG rule browsing</h1>
+            <TableOfContents rulesDict={rulesDictionary} rulesArray={rules} />
+          </Route>
+        </Switch>
+      </RulesContext.Provider>
+    </Container>
   );
 };
 

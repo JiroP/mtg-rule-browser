@@ -1,8 +1,14 @@
 import React, { ReactElement, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import { Chapter } from '../types';
 import RulesContainer from './RulesContainer';
 import { COLORS } from '../constants/colors';
+
+interface ChapterProps extends Chapter {
+  id: string;
+  sectionId: string;
+}
 
 const useStyles = makeStyles(() => ({
   chapter: {
@@ -12,9 +18,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ChapterContainer: React.FC<Chapter> = ({
+const ChapterContainer: React.FC<ChapterProps> = ({
   rules,
   title,
+  id,
+  sectionId,
 }): ReactElement => {
   const [rulesVisible, setRulesVisible] = useState(false);
   const classes = useStyles();
@@ -25,16 +33,18 @@ const ChapterContainer: React.FC<Chapter> = ({
 
   return (
     <>
-      <div
-        className={classes.chapter}
-        onClick={handleClick}
-        onKeyDown={handleClick}
-        role="button"
-        tabIndex={0}
-      >
-        {title}
-      </div>
-      {rulesVisible && <RulesContainer rules={Object.values(rules)} />}
+      <Link to={`/${sectionId}/${id}`}>
+        <div
+          className={classes.chapter}
+          onClick={handleClick}
+          onKeyDown={handleClick}
+          role="button"
+          tabIndex={0}
+        >
+          {title}
+        </div>
+      </Link>
+      {/* {rulesVisible && <RulesContainer rules={Object.values(rules)} />} */}
     </>
   );
 };

@@ -4,6 +4,10 @@ import ChapterContainer from './ChapterContainer';
 import { Section } from '../types';
 import { COLORS } from '../constants/colors';
 
+interface SectionContainerProps extends Section {
+  id: string;
+}
+
 const useStyles = makeStyles(() => ({
   section: {
     background: COLORS[700],
@@ -11,14 +15,20 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SectionContainer: React.FC<Section> = ({ chapters, title }) => {
+const SectionContainer: React.FC<SectionContainerProps> = ({ chapters, title, id }) => {
   const classes = useStyles();
 
   return (
     <>
       <div className={classes.section}>{title}</div>
-      {Object.values(chapters).map((chapter) => (
-        <ChapterContainer rules={chapter.rules} title={chapter.title} />
+      {Object.entries(chapters).map(([chapterId, chapter]) => (
+        <ChapterContainer
+          key={`chapter-${chapter.title}`}
+          id={chapterId}
+          sectionId={id}
+          rules={chapter.rules}
+          title={chapter.title}
+        />
       ))}
     </>
   );
