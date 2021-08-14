@@ -5,6 +5,7 @@ import {
   Button,
   Container,
   makeStyles,
+  TextField,
   Toolbar,
   Typography,
 } from '@material-ui/core';
@@ -17,6 +18,7 @@ import TableOfContents from './components/TableOfContents';
 import { RulesDict } from './types';
 import { COLORS } from './constants/colors';
 import RulesContainer from './components/RulesContainer';
+import SearchBar from './components/SearchBar';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -28,9 +30,7 @@ const useStyles = makeStyles((theme) => ({
   homeButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
-    flexGrow: 1,
-  },
+  title: {},
 }));
 
 const App: React.FC = (): ReactElement | null => {
@@ -69,6 +69,7 @@ const App: React.FC = (): ReactElement | null => {
           <Typography variant="h6" className={classes.title}>
             Magic the gathering rules browser
           </Typography>
+          <SearchBar />
         </Toolbar>
       </AppBar>
       <Toolbar />
