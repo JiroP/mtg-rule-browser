@@ -1,5 +1,6 @@
-import { makeStyles } from '@material-ui/styles';
 import React, { useContext } from 'react';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from 'react-router';
 import RulesContext from '../RulesContext';
 import RuleContainer from './RuleContainer';
@@ -34,9 +35,9 @@ const RulesContainer: React.FC = () => {
           />
         ))
       ) : (
-        <h2 className={classes.notFoundHeader}>
+        <Typography className={classes.notFoundHeader} variant="h2">
           Rules not found for the chapter. :(
-        </h2>
+        </Typography>
       )}
     </>
   );

@@ -4,11 +4,10 @@ import {
   AppBar,
   Button,
   Container,
-  makeStyles,
-  TextField,
   Toolbar,
   Typography,
 } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { Link, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 

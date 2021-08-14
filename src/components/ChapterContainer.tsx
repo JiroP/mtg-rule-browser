@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react';
-import { makeStyles } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { Chapter } from '../types';
 import RulesContainer from './RulesContainer';
@@ -34,7 +35,7 @@ const ChapterContainer: React.FC<ChapterProps> = ({
   return (
     <>
       <Link to={`/${sectionId}/${id}`}>
-        <div
+        <Typography
           className={classes.chapter}
           onClick={handleClick}
           onKeyDown={handleClick}
@@ -42,7 +43,7 @@ const ChapterContainer: React.FC<ChapterProps> = ({
           tabIndex={0}
         >
           {title}
-        </div>
+        </Typography>
       </Link>
       {/* {rulesVisible && <RulesContainer rules={Object.values(rules)} />} */}
     </>

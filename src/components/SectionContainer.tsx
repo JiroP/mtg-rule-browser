@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import ChapterContainer from './ChapterContainer';
 import { Section } from '../types';
 import { COLORS } from '../constants/colors';
@@ -15,13 +16,20 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SectionContainer: React.FC<SectionContainerProps> = ({ chapters, title, id }) => {
+const SectionContainer: React.FC<SectionContainerProps> = ({
+  chapters,
+  title,
+  id,
+}) => {
   const classes = useStyles();
+
+  // For some reason entries was messing up insert order so we sort it
+  const chaptersArray = Object.entries(chapters).sort((a, b) => a[0].localeCompare(b[0]));
 
   return (
     <>
-      <div className={classes.section}>{title}</div>
-      {Object.entries(chapters).map(([chapterId, chapter]) => (
+      <Typography className={classes.section}>{title}</Typography>
+      {chaptersArray.map(([chapterId, chapter]) => (
         <ChapterContainer
           key={`chapter-${chapter.title}`}
           id={chapterId}
