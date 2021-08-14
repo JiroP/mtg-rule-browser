@@ -1,14 +1,15 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import { Rule } from '../types';
+import { COLORS } from '../constants/colors';
 
 const useStyles = makeStyles(() => ({
   rule: {
-    background: '#BDBDBD',
+    background: COLORS[500],
     marginLeft: '20px',
   },
   subRule: {
-    background: '#EEEEEE',
+    background: COLORS[400],
     marginLeft: '30px',
   },
 }));

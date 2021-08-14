@@ -2,10 +2,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import ChapterContainer from './ChapterContainer';
 import { Section } from '../types';
+import { COLORS } from '../constants/colors';
 
 const useStyles = makeStyles(() => ({
   section: {
-    background: '#424242',
+    background: COLORS[700],
     color: 'white',
   },
 }));

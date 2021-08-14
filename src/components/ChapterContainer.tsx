@@ -2,10 +2,11 @@ import React, { ReactElement, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { Chapter } from '../types';
 import RulesContainer from './RulesContainer';
+import { COLORS } from '../constants/colors';
 
 const useStyles = makeStyles(() => ({
   chapter: {
-    background: '#757575',
+    background: COLORS[600],
     color: 'white',
     marginLeft: '10px',
   },
