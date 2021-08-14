@@ -18,6 +18,7 @@ import { RulesDict } from './types';
 import { COLORS } from './constants/colors';
 import RulesContainer from './components/RulesContainer';
 import SearchBar from './components/SearchBar';
+import SearchView from './components/SearchView';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -79,6 +80,9 @@ const App: React.FC = (): ReactElement | null => {
           <Switch>
             <Route path="/:sectionId/:chapterId">
               <RulesContainer />
+            </Route>
+            <Route path="/search">
+              <SearchView />
             </Route>
             <Route exact path="/">
               <TableOfContents rulesDict={rulesDictionary} rulesArray={rules} />
