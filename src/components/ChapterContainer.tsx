@@ -1,9 +1,22 @@
 import React, { ReactElement, useState } from 'react';
+import { makeStyles } from '@material-ui/core';
 import { Chapter } from '../types';
 import RulesContainer from './RulesContainer';
 
-const ChapterContainer: React.FC<Chapter> = ({ rules, title }): ReactElement => {
+const useStyles = makeStyles(() => ({
+  chapter: {
+    background: '#757575',
+    color: 'white',
+    marginLeft: '10px',
+  },
+}));
+
+const ChapterContainer: React.FC<Chapter> = ({
+  rules,
+  title,
+}): ReactElement => {
   const [rulesVisible, setRulesVisible] = useState(false);
+  const classes = useStyles();
 
   const handleClick = (): void => {
     setRulesVisible((prev) => !prev);
@@ -12,7 +25,7 @@ const ChapterContainer: React.FC<Chapter> = ({ rules, title }): ReactElement => 
   return (
     <>
       <div
-        style={{ marginLeft: '10px' }}
+        className={classes.chapter}
         onClick={handleClick}
         onKeyDown={handleClick}
         role="button"
@@ -20,9 +33,7 @@ const ChapterContainer: React.FC<Chapter> = ({ rules, title }): ReactElement => 
       >
         {title}
       </div>
-      {
-        rulesVisible && <RulesContainer rules={Object.values(rules)} />
-      }
+      {rulesVisible && <RulesContainer rules={Object.values(rules)} />}
     </>
   );
 };

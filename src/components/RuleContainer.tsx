@@ -1,15 +1,31 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core';
 import { Rule } from '../types';
 
-const RuleContainer: React.FC<Rule> = ({ subRules, title }) => (
-  <>
-    <div style={{ marginLeft: '20px' }}>{title}</div>
-    {Object.values(subRules).map((subRule) => (
-      <div key={`subrule${subRule.title}`} style={{ marginLeft: '30px' }}>
-        {subRule.title}
-      </div>
-    ))}
-  </>
-);
+const useStyles = makeStyles(() => ({
+  rule: {
+    background: '#BDBDBD',
+    marginLeft: '20px',
+  },
+  subRule: {
+    background: '#EEEEEE',
+    marginLeft: '30px',
+  },
+}));
+
+const RuleContainer: React.FC<Rule> = ({ subRules, title }) => {
+  const classes = useStyles();
+
+  return (
+    <>
+      <div className={classes.rule}>{title}</div>
+      {Object.values(subRules).map((subRule) => (
+        <div key={`subrule${subRule.title}`} className={classes.subRule}>
+          {subRule.title}
+        </div>
+      ))}
+    </>
+  );
+};
 
 export default RuleContainer;
