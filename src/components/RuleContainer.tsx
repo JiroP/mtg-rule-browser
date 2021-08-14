@@ -1,4 +1,5 @@
 import React from 'react';
+import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Rule } from '../types';
 import { COLORS } from '../constants/colors';
@@ -19,11 +20,11 @@ const RuleContainer: React.FC<Rule> = ({ subRules, title }) => {
 
   return (
     <>
-      <div className={classes.rule}>{title}</div>
+      <Typography className={classes.rule}>{title}</Typography>
       {Object.values(subRules).map((subRule) => (
-        <div key={`subrule${subRule.title}`} className={classes.subRule}>
+        <Typography key={`subrule${subRule.title}`} className={classes.subRule}>
           {subRule.title}
-        </div>
+        </Typography>
       ))}
     </>
   );
