@@ -1,13 +1,15 @@
-import React, { ReactElement, useEffect, useState } from 'react';
-import './App.css';
+import React, {
+  ReactElement, useEffect, useMemo, useState,
+} from 'react';
 import {
   AppBar,
   Button,
   Container,
+  CssBaseline,
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { Link, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
@@ -24,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
   container: {
     background: COLORS[800],
     paddingBottom: theme.spacing(3),
+    paddingTop: theme.spacing(2),
+    marginTop: theme.spacing(1),
     borderRadius: '10px',
   },
   appBar: {
@@ -37,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
 
 const App: React.FC = (): ReactElement | null => {
   const classes = useStyles();
+
+  const theme = useMemo(() => createTheme({
+    palette: { type: 'dark' },
+  }), []);
 
   const [rulesDictionary, setRulesDictionary] = useState<RulesDict>({});
   const [rules, setRules] = useState<string[]>([]);
@@ -62,37 +70,39 @@ const App: React.FC = (): ReactElement | null => {
   }
 
   return (
-    <>
-      <AppBar className={classes.appBar}>
-        <Toolbar>
-          <Link to="/">
-            <Button className={classes.homeButton}>Home</Button>
-          </Link>
-          <Typography variant="h6" className={classes.title}>
-            Magic the gathering rules browser
-          </Typography>
-          <SearchBar />
-        </Toolbar>
-      </AppBar>
-      <Toolbar />
-      <Container className={classes.container}>
-        <RulesContext.Provider
-          value={{ rulesArray: rules, rulesDict: rulesDictionary }}
-        >
-          <Switch>
-            <Route path="/:sectionId/:chapterId">
-              <ChapterPage />
-            </Route>
-            <Route path="/search">
-              <SearchView />
-            </Route>
-            <Route exact path="/">
-              <TableOfContents rulesDict={rulesDictionary} rulesArray={rules} />
-            </Route>
-          </Switch>
-        </RulesContext.Provider>
-      </Container>
-    </>
+    <ThemeProvider theme={theme}>
+      <CssBaseline>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <Link to="/">
+              <Button className={classes.homeButton}>Home</Button>
+            </Link>
+            <Typography variant="h6" className={classes.title}>
+              Magic the gathering rules browser
+            </Typography>
+            <SearchBar />
+          </Toolbar>
+        </AppBar>
+        <Toolbar />
+        <Container className={classes.container}>
+          <RulesContext.Provider
+            value={{ rulesArray: rules, rulesDict: rulesDictionary }}
+          >
+            <Switch>
+              <Route path="/:sectionId/:chapterId">
+                <ChapterPage />
+              </Route>
+              <Route path="/search">
+                <SearchView />
+              </Route>
+              <Route exact path="/">
+                <TableOfContents rulesDict={rulesDictionary} rulesArray={rules} />
+              </Route>
+            </Switch>
+          </RulesContext.Provider>
+        </Container>
+      </CssBaseline>
+    </ThemeProvider>
   );
 };
 

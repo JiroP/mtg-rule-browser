@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import ChapterLink from './ChapterLink';
 import { Section } from '../types';
 import { COLORS } from '../constants/colors';
@@ -9,10 +9,15 @@ interface SectionContainerProps extends Section {
   id: string;
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   section: {
-    background: COLORS[700],
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     color: 'white',
+  },
+  chapterRoot: {
+    background: COLORS[600],
+    borderRadius: '10px',
   },
 }));
 
@@ -29,15 +34,17 @@ const SectionContainer: React.FC<SectionContainerProps> = ({
   return (
     <>
       <Typography className={classes.section}>{title}</Typography>
-      {chaptersArray.map(([chapterId, chapter]) => (
-        <ChapterLink
-          key={`chapter-${chapter.title}`}
-          id={chapterId}
-          sectionId={id}
-          rules={chapter.rules}
-          title={chapter.title}
-        />
-      ))}
+      <div className={classes.chapterRoot}>
+        {chaptersArray.map(([chapterId, chapter]) => (
+          <ChapterLink
+            key={`chapter-${chapter.title}`}
+            id={chapterId}
+            sectionId={id}
+            rules={chapter.rules}
+            title={chapter.title}
+          />
+        ))}
+      </div>
     </>
   );
 };

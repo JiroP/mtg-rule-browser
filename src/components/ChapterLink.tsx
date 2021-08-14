@@ -12,7 +12,7 @@ interface ChapterProps extends Chapter {
 
 const useStyles = makeStyles(() => ({
   chapter: {
-    background: COLORS[600],
+    // background: COLORS[600],
     color: 'white',
     marginLeft: '10px',
   },
