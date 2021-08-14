@@ -1,12 +1,13 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import './App.css';
 import { Container, makeStyles } from '@material-ui/core';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import axios from 'axios';
 
 import parseRulesToObject from './utils/parseRules';
 import TableOfContents from './components/TableOfContents';
 import { RulesDict } from './types';
 import { COLORS } from './constants/colors';
-import './App.css';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -37,10 +38,12 @@ const App: React.FC = (): ReactElement => {
   }, []);
 
   return (
-    <Container className={classes.container}>
-      <h1>MTG rule browsing</h1>
-      <TableOfContents rulesDict={rulesDictionary} rulesArray={rules} />
-    </Container>
+    <Router>
+      <Container className={classes.container}>
+        <h1>MTG rule browsing</h1>
+        <TableOfContents rulesDict={rulesDictionary} rulesArray={rules} />
+      </Container>
+    </Router>
   );
 };
 
