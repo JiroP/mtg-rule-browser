@@ -1,7 +1,14 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import './App.css';
-import { Container, makeStyles } from '@material-ui/core';
-import { Route, Switch } from 'react-router-dom';
+import {
+  AppBar,
+  Button,
+  Container,
+  makeStyles,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
+import { Link, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 import RulesContext from './RulesContext';
@@ -11,9 +18,18 @@ import { RulesDict } from './types';
 import { COLORS } from './constants/colors';
 import RulesContainer from './components/RulesContainer';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     background: COLORS[800],
+  },
+  appBar: {
+    background: COLORS[500],
+  },
+  homeButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
   },
 }));
 
@@ -44,21 +60,33 @@ const App: React.FC = (): ReactElement | null => {
   }
 
   return (
-    <Container className={classes.container}>
-      <RulesContext.Provider
-        value={{ rulesArray: rules, rulesDict: rulesDictionary }}
-      >
-        <Switch>
-          <Route path="/:sectionId/:chapterId">
-            <RulesContainer />
-          </Route>
-          <Route exact path="/">
-            <h1>MTG rule browsing</h1>
-            <TableOfContents rulesDict={rulesDictionary} rulesArray={rules} />
-          </Route>
-        </Switch>
-      </RulesContext.Provider>
-    </Container>
+    <>
+      <AppBar className={classes.appBar}>
+        <Toolbar>
+          <Link to="/">
+            <Button className={classes.homeButton}>Home</Button>
+          </Link>
+          <Typography variant="h6" className={classes.title}>
+            Magic the gathering rules browser
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
+      <Container className={classes.container}>
+        <RulesContext.Provider
+          value={{ rulesArray: rules, rulesDict: rulesDictionary }}
+        >
+          <Switch>
+            <Route path="/:sectionId/:chapterId">
+              <RulesContainer />
+            </Route>
+            <Route exact path="/">
+              <TableOfContents rulesDict={rulesDictionary} rulesArray={rules} />
+            </Route>
+          </Switch>
+        </RulesContext.Provider>
+      </Container>
+    </>
   );
 };
 
