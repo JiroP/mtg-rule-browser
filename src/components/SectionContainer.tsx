@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import ChapterContainer from './ChapterContainer';
+import ChapterLink from './ChapterLink';
 import { Section } from '../types';
 import { COLORS } from '../constants/colors';
 
@@ -30,7 +30,7 @@ const SectionContainer: React.FC<SectionContainerProps> = ({
     <>
       <Typography className={classes.section}>{title}</Typography>
       {chaptersArray.map(([chapterId, chapter]) => (
-        <ChapterContainer
+        <ChapterLink
           key={`chapter-${chapter.title}`}
           id={chapterId}
           sectionId={id}

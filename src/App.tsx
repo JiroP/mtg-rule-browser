@@ -16,13 +16,15 @@ import parseRulesToObject from './utils/parseRules';
 import TableOfContents from './components/TableOfContents';
 import { RulesDict } from './types';
 import { COLORS } from './constants/colors';
-import RulesContainer from './components/RulesContainer';
 import SearchBar from './components/SearchBar';
 import SearchView from './components/SearchView';
+import ChapterPage from './components/ChapterPage';
 
 const useStyles = makeStyles((theme) => ({
   container: {
     background: COLORS[800],
+    paddingBottom: theme.spacing(3),
+    borderRadius: '10px',
   },
   appBar: {
     background: COLORS[500],
@@ -79,7 +81,7 @@ const App: React.FC = (): ReactElement | null => {
         >
           <Switch>
             <Route path="/:sectionId/:chapterId">
-              <RulesContainer />
+              <ChapterPage />
             </Route>
             <Route path="/search">
               <SearchView />

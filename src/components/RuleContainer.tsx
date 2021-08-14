@@ -4,14 +4,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Rule } from '../types';
 import { COLORS } from '../constants/colors';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   rule: {
-    background: COLORS[500],
-    marginLeft: '20px',
+    marginLeft: theme.spacing(2),
+    marginTop: theme.spacing(1.5),
+    marginBottom: theme.spacing(1.5),
   },
   subRule: {
-    background: COLORS[400],
-    marginLeft: '30px',
+    marginLeft: theme.spacing(3),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
 }));
 
