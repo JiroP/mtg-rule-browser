@@ -1,5 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import Container from '@material-ui/core/Container';
 import axios from 'axios';
+
 import parseRulesToObject from './utils/parseRules';
 import { RulesDict } from './types';
 import TableOfContents from './components/TableOfContents';
@@ -13,9 +15,7 @@ const App: React.FC = (): ReactElement => {
     const fetchRules: () => Promise<void> = async () => {
       try {
         const resp = await axios.get('http://localhost:3001');
-        const { rulesArray, rulesDict } = parseRulesToObject(
-          resp.data,
-        );
+        const { rulesArray, rulesDict } = parseRulesToObject(resp.data);
         setRulesDictionary(rulesDict);
         setRules(rulesArray);
       } catch (error) {
@@ -28,13 +28,10 @@ const App: React.FC = (): ReactElement => {
   }, []);
 
   return (
-    <>
-      <h1>Hello world</h1>
-      <TableOfContents
-        rulesDict={rulesDictionary}
-        rulesArray={rules}
-      />
-    </>
+    <Container>
+      <h1>MTG rule browsing</h1>
+      <TableOfContents rulesDict={rulesDictionary} rulesArray={rules} />
+    </Container>
   );
 };
 
