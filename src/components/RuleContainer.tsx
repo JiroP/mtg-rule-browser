@@ -2,7 +2,6 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Rule } from '../types';
-import { COLORS } from '../constants/colors';
 
 const useStyles = makeStyles((theme) => ({
   rule: {

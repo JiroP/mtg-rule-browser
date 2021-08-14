@@ -45,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchBar: React.FC = (): ReactElement => {
+const SearchBar: React.FC<{handleSearch: (text: string) => void}> = ({ handleSearch })
+  : ReactElement => {
   const classes = useStyles();
 
   const [value, setValue] = useState('');
@@ -56,7 +57,8 @@ const SearchBar: React.FC = (): ReactElement => {
 
   const handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
-    console.log(value);
+    handleSearch(value);
+    setValue('');
   };
 
   return (

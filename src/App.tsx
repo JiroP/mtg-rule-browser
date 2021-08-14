@@ -9,8 +9,14 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core';
-import { createTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import { Link, Route, Switch } from 'react-router-dom';
+import {
+  createTheme,
+  makeStyles,
+  ThemeProvider,
+} from '@material-ui/core/styles';
+import {
+  Link, Route, Switch, useHistory,
+} from 'react-router-dom';
 import axios from 'axios';
 
 import RulesContext from './RulesContext';
@@ -42,23 +48,34 @@ const useStyles = makeStyles((theme) => ({
 const App: React.FC = (): ReactElement | null => {
   const classes = useStyles();
 
-  const theme = useMemo(() => createTheme({
-    palette: { type: 'dark' },
-  }), []);
+  const theme = useMemo(
+    () => createTheme({
+      palette: { type: 'dark' },
+    }),
+    [],
+  );
+
+  const history = useHistory();
 
   const [rulesDictionary, setRulesDictionary] = useState<RulesDict>({});
   const [rules, setRules] = useState<string[]>([]);
 
+  const handleSearch = (text: string): void => {
+    if (text) {
+      history.push(`/search?value=${text}`);
+    }
+  };
+
   useEffect(() => {
     const fetchRules: () => Promise<void> = async () => {
       try {
-        const resp = await axios.get('http://localhost:3001');
+        const resp = await axios.get('/api/mtg');
         const { rulesArray, rulesDict } = parseRulesToObject(resp.data);
         setRulesDictionary(rulesDict);
         setRules(rulesArray);
       } catch (error) {
-        console.error('Error getting rules');
-        console.error(error);
+        // console.error('Error getting rules');
+        // console.error(error);
       }
     };
 
@@ -80,7 +97,7 @@ const App: React.FC = (): ReactElement | null => {
             <Typography variant="h6" className={classes.title}>
               Magic the gathering rules browser
             </Typography>
-            <SearchBar />
+            <SearchBar handleSearch={handleSearch} />
           </Toolbar>
         </AppBar>
         <Toolbar />
@@ -96,7 +113,10 @@ const App: React.FC = (): ReactElement | null => {
                 <SearchView />
               </Route>
               <Route exact path="/">
-                <TableOfContents rulesDict={rulesDictionary} rulesArray={rules} />
+                <TableOfContents
+                  rulesDict={rulesDictionary}
+                  rulesArray={rules}
+                />
               </Route>
             </Switch>
           </RulesContext.Provider>

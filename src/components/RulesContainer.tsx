@@ -7,7 +7,7 @@ import { COLORS } from '../constants/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: COLORS[400],
+    background: COLORS[500],
     borderRadius: '10px',
     marginBottom: theme.spacing(2),
   },

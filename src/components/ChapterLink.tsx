@@ -3,7 +3,6 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { Chapter } from '../types';
-import { COLORS } from '../constants/colors';
 
 interface ChapterProps extends Chapter {
   id: string;
