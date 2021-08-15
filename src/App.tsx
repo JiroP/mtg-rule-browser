@@ -15,7 +15,7 @@ import {
   ThemeProvider,
 } from '@material-ui/core/styles';
 import {
-  Link, Route, Switch, useHistory,
+  Link, Redirect, Route, Switch, useHistory,
 } from 'react-router-dom';
 import axios from 'axios';
 
@@ -106,18 +106,19 @@ const App: React.FC = (): ReactElement | null => {
             value={{ rulesArray: rules, rulesDict: rulesDictionary }}
           >
             <Switch>
-              <Route path="/:sectionId/:chapterId">
+              <Route path="/chapter/:sectionId/:chapterId">
                 <ChapterPage />
               </Route>
               <Route path="/search">
                 <SearchPage />
               </Route>
-              <Route exact path="/">
+              <Route exact path="/home">
                 <TableOfContents
                   rulesDict={rulesDictionary}
                   rulesArray={rules}
                 />
               </Route>
+              <Redirect path="/" to="/home" />
             </Switch>
           </RulesContext.Provider>
         </Container>

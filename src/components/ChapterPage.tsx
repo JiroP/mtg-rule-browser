@@ -30,18 +30,46 @@ const ChapterPage: React.FC = (): ReactElement => {
   const { rulesDict } = useContext(RulesContext);
   const { chapterId, sectionId } = useParams<ChapterParams>();
 
-  const { title: sectionTitle, chapters } = rulesDict[sectionId];
-  const { title: chapterTitle, rules } = chapters?.[chapterId];
+  const section = rulesDict[sectionId];
+
+  if (!section) {
+    return (
+      <Typography className={classes.sectionHeader} variant="h4">
+        Section not found
+      </Typography>
+    );
+  }
+
+  const { title: sectionTitle, chapters } = section;
+  const chapter = chapters?.[chapterId];
+
+  if (!chapter) {
+    return (
+      <Typography className={classes.sectionHeader} variant="h4">
+        Chapter not found
+      </Typography>
+    );
+  }
+
+  const { title: chapterTitle, rules } = chapter;
 
   return (
     <>
-      <Typography className={classes.sectionHeader} variant="h4">
-        {sectionTitle}
-      </Typography>
-      <Typography className={classes.chapterHeader} variant="h5">
-        {chapterTitle}
-      </Typography>
-      <Rules rules={rules} />
+      {chapterTitle ? (
+        <>
+          <Typography className={classes.sectionHeader} variant="h4">
+            {sectionTitle}
+          </Typography>
+          <Typography className={classes.chapterHeader} variant="h5">
+            {chapterTitle}
+          </Typography>
+          <Rules rules={rules} />
+        </>
+      ) : (
+        <Typography className={classes.sectionHeader} variant="h4">
+          Chapter not found
+        </Typography>
+      )}
     </>
   );
 };

@@ -27,7 +27,7 @@ const ChapterLink: React.FC<ChapterProps> = ({
 
   return (
     <>
-      <Link to={`/${sectionId}/${id}`}>
+      <Link to={`/chapter/${sectionId}/${id}`}>
         <Typography className={classes.chapter}>{title}</Typography>
       </Link>
     </>
