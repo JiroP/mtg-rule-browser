@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchView: React.FC = (): ReactElement => {
+const SearchPage: React.FC = (): ReactElement => {
   const classes = useStyles();
 
   const { search } = useLocation();
@@ -50,4 +50,4 @@ const SearchView: React.FC = (): ReactElement => {
   );
 };
 
-export default SearchView;
+export default SearchPage;

@@ -23,7 +23,7 @@ import RulesContext from './RulesContext';
 import parseRulesToObject from './utils/parseRules';
 import TableOfContents from './components/TableOfContents';
 import SearchBar from './components/SearchBar';
-import SearchView from './components/SearchView';
+import SearchPage from './components/SearchPage';
 import ChapterPage from './components/ChapterPage';
 import { RulesDict } from './types';
 import { COLORS } from './constants/colors';
@@ -110,7 +110,7 @@ const App: React.FC = (): ReactElement | null => {
                 <ChapterPage />
               </Route>
               <Route path="/search">
-                <SearchView />
+                <SearchPage />
               </Route>
               <Route exact path="/">
                 <TableOfContents
