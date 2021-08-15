@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
+
+import SectionComponent from './SectionComponent';
 import { RuleContents } from '../types';
-import SectionContainer from './SectionContainer';
 
 const TableOfContents: React.FC<RuleContents> = ({
   rulesArray,
@@ -13,7 +14,7 @@ const TableOfContents: React.FC<RuleContents> = ({
   return (
     <>
       {Object.entries(rulesDict).map(([id, { title, chapters }]) => (
-        <SectionContainer
+        <SectionComponent
           key={`Section-${title}`}
           id={id}
           title={title}

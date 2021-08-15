@@ -22,11 +22,11 @@ import axios from 'axios';
 import RulesContext from './RulesContext';
 import parseRulesToObject from './utils/parseRules';
 import TableOfContents from './components/TableOfContents';
-import { RulesDict } from './types';
-import { COLORS } from './constants/colors';
 import SearchBar from './components/SearchBar';
 import SearchView from './components/SearchView';
 import ChapterPage from './components/ChapterPage';
+import { RulesDict } from './types';
+import { COLORS } from './constants/colors';
 
 const useStyles = makeStyles((theme) => ({
   container: {

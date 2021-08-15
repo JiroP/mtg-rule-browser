@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
 import { Rule } from '../types';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RuleContainer: React.FC<Rule> = ({ subRules, title }) => {
+const RuleComponent: React.FC<Rule> = ({ subRules, title }) => {
   const classes = useStyles();
 
   return (
@@ -31,4 +32,4 @@ const RuleContainer: React.FC<Rule> = ({ subRules, title }) => {
   );
 };
 
-export default RuleContainer;
+export default RuleComponent;

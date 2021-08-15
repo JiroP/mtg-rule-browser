@@ -2,8 +2,9 @@ import React, { ReactElement, useContext } from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from 'react-router';
+
 import RulesContext from '../RulesContext';
-import RulesContainer from './RulesContainer';
+import Rules from './Rules';
 
 interface ChapterParams {
   chapterId: string;
@@ -40,7 +41,7 @@ const ChapterPage: React.FC = (): ReactElement => {
       <Typography className={classes.chapterHeader} variant="h5">
         {chapterTitle}
       </Typography>
-      <RulesContainer rules={rules} />
+      <Rules rules={rules} />
     </>
   );
 };

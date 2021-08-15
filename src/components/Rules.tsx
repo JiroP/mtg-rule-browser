@@ -1,7 +1,8 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import RuleContainer from './RuleContainer';
+
+import RuleComponent from './RuleComponent';
 import { Rule } from '../types';
 import { COLORS } from '../constants/colors';
 
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RulesContainer: React.FC<{ rules: { [key: string]: Rule } }> = ({
+const Rules: React.FC<{ rules: { [key: string]: Rule } }> = ({
   rules,
 }) => {
   const classes = useStyles();
@@ -25,7 +26,7 @@ const RulesContainer: React.FC<{ rules: { [key: string]: Rule } }> = ({
     <div className={classes.root}>
       {rules ? (
         Object.values(rules).map(({ subRules, title }) => (
-          <RuleContainer
+          <RuleComponent
             key={`rule-container-${title}`}
             subRules={subRules}
             title={title}
@@ -40,4 +41,4 @@ const RulesContainer: React.FC<{ rules: { [key: string]: Rule } }> = ({
   );
 };
 
-export default RulesContainer;
+export default Rules;

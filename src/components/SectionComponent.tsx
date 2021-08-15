@@ -5,7 +5,7 @@ import ChapterLink from './ChapterLink';
 import { Section } from '../types';
 import { COLORS } from '../constants/colors';
 
-interface SectionContainerProps extends Section {
+interface SectionProps extends Section {
   id: string;
 }
 
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SectionContainer: React.FC<SectionContainerProps> = ({
+const SectionComponent: React.FC<SectionProps> = ({
   chapters,
   title,
   id,
@@ -49,4 +49,4 @@ const SectionContainer: React.FC<SectionContainerProps> = ({
   );
 };
 
-export default SectionContainer;
+export default SectionComponent;
