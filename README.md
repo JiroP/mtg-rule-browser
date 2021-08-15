@@ -1,4 +1,10 @@
-# Getting Started with Create React App
+# This is a minimalistic browser for mtg rules build with React and Typescript.
+
+The app depends on cors-proxy handled by express. Express also serves the build files.
+
+There are no tests yet as the scope was quite small and time short.
+
+Happy browsing!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
